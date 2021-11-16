@@ -17,6 +17,11 @@ async def on_ready():
         f'{guild.name} (id: {guild.id})'
         )
     members = "\n - ".join([member.name for member in guild.members])
-    print(f'Guild members in {guild.name}:: \n {members}')
+    # print(f'Guild members in {guild.name}:: \n {members}')
+
+@client.event
+async def on_member_join(member):
+    await member.create_dm()
+    await member.dm_channel.send(f'Hi {member.name}, Welcome to my discord server')
 
 client.run(TOKEN)
