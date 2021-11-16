@@ -1,17 +1,15 @@
-# An alternate way to create event handlers for Discord events
 import os
-import discord
+import random
+from discord.ext import commands
 from dotenv import load_dotenv
 
 load_dotenv()
 TOKEN = os.getenv("DISCORD_TOKEN")
-GUILD = os.getenv("DISCORD_GUILD")
 
-class CustumClient(discord.Client):
-    async def on_ready(self):
-        print(f'{self.user} has connected to Discord APIs')
-        pass
-    pass
+bot = commands.Bot(command_prefix="!")
 
-client = CustumClient()
-client.run(TOKEN)
+@bot.event
+async def on_ready():
+    print(f'{bot.user} has connected to Discord')
+
+bot.run(TOKEN)
