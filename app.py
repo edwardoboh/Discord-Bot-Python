@@ -37,9 +37,18 @@ async def on_message(message):
             'no doubt no doubt no doubt no doubt.'
         ),
     ]
-    if(message.content == "99!"):
+    if message.content == "99!":
         response = random.choice(random_messages)
         await message.channel.send(response)
-    pass
+    elif message.content == "raise-exception":
+        raise discord.DiscordException
+    
+@client.event
+async def on_error(event, *args, **kwargs):
+    with open("err.log", "a") as f:
+        if event == 'on_message':
+            f.write(f'Error:: \n\t - Unhandled message: {args[0]} \n\t - from event: {event} \n')
+        else:
+            raise
 
 client.run(TOKEN)
