@@ -30,7 +30,6 @@ async def roll_dice(ctx, dice_faces: int, dice_rolls: int):
         random.choice(range(1, dice_faces + 1))
         for _ in range(dice_rolls)
     ]
-    print(f'Dice Outcomes:: {dice_outcome}')
     await ctx.send(dice_outcome)
 
 bot.run(TOKEN)
