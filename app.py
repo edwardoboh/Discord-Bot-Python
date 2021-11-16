@@ -10,14 +10,13 @@ client = discord.Client()
 
 @client.event
 async def on_ready():
-    print(f'{client.user} has connected to discord')
-    for guild in client.guilds:
-        if(guild.name == GUILD):
-            print("server found")
-            break
+    guild = discord.utils.find(lambda g: g.name == GUILD, client.guilds)
+    # guild = discord.utils.get(client.guilds, name=GUILD)
     print(
         f'{client.user} is connected to the following guild:\n'
         f'{guild.name} (id: {guild.id})'
         )
+    members = "\n - ".join([member.name for member in guild.members])
+    print(f'Guild members in {guild.name}:: \n {members}')
 
 client.run(TOKEN)
