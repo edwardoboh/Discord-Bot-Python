@@ -45,4 +45,11 @@ async def create_channel(ctx, channel_name="bot_channel"):
     else:
         await ctx.send(f'Channel with name {channel_name} already exists. Select a different name')
 
+@bot.event
+async def on_command_error(context, error):
+    if isinstance(error, commands.errors.CheckFailure):
+        await context.send("You do not have the Right priviledge to perform this action")
+    else:
+        raise
+
 bot.run(TOKEN)
