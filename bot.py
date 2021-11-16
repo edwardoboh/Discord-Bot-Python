@@ -1,4 +1,5 @@
 import os
+import discord
 from discord.ext import commands
 from dotenv import load_dotenv
 import random
@@ -31,5 +32,17 @@ async def roll_dice(ctx, dice_faces: int, dice_rolls: int):
         for _ in range(dice_rolls)
     ]
     await ctx.send(dice_outcome)
+
+@bot.command(name="create_channel", help="Command to instruct bot to create a new channel")
+@commands.has_role("admin")
+async def create_channel(ctx, channel_name="bot_channel"):
+    guild = ctx.guild
+    check_guild = discord.utils.find(lambda c: c.name == channel_name, guild.channels)
+
+    if not check_guild:
+        await ctx.send(f'Creating Channel {channel_name} ...')
+        await guild.create_text_channel(channel_name)
+    else:
+        await ctx.send(f'Channel with name {channel_name} already exists. Select a different name')
 
 bot.run(TOKEN)
