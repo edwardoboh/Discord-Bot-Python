@@ -4,9 +4,20 @@ from dotenv import load_dotenv
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
-client = discord.client()
+GUILD = os.getenv('DISCORD_GUILD')
+
+client = discord.Client()
 
 @client.event
 async def on_ready():
     print(f'{client.user} has connected to discord')
-    client.run(TOKEN)
+    for guild in client.guilds:
+        if(guild.name == GUILD):
+            print("server found")
+            break
+    print(
+        f'{client.user} is connected to the following guild:\n'
+        f'{guild.name} (id: {guild.id})'
+        )
+
+client.run(TOKEN)
